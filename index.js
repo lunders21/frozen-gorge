@@ -3,7 +3,7 @@ var app = express();
 var pg = require('pg');
 
 var conString = "postgres://ebzqldzdjabrhx:7YBhRVZ3KanjSCuPvGtTYAIcBT@ec2-54-163-238-96.compute-1.amazonaws.com:5432/d2u36iutqq574u";
-var client = new pg.Client(conString);
+//var client = new pg.Client(conString);
 
 app.set('port', (process.env.PORT || 5000));
 app.use(express.static(__dirname + '/public'));
@@ -13,23 +13,19 @@ app.get('/', function(request, response) {
     var query = require('url').parse(request.url,true).query;
     var user = query.user;
 
-    client.connect(function(err) {
-        if(err) {
-            response.send('could not connect to postgres', err);
-        }
+    pg.connect(conString, function (err, client, done) {
         client.query("SELECT ANTALL FROM REQUESTER WHERE BRUKER = '" + user + "'", function(err, result) {
             if(err) {
-                response.send('error running query', err);
+                console.log('error running query', err);
             }
             console.log(result.rows[0]);
+            response.set('Content-Type', 'application/json');
+            response.send(JSON.stringify({ data: result.rows.map(makeJSON) }));
             //output: Tue Jan 15 2013 19:12:47 GMT-600 (CST)
-            client.end();
-            response.send(result.rows[0].theTime);
+          //  response.send(result.rows[0].theTime);
         });
+        done();
     });
-    
-
-    response.send(result);
 });
 
 app.post('/', function(request, response) {
