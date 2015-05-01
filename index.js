@@ -16,13 +16,11 @@ app.get('/', function(request, response) {
     pg.connect(conString, function (err, client, done) {
         client.query("SELECT ANTALL FROM REQUESTER WHERE BRUKER = '" + user + "'", function(err, result) {
             if(err) {
-                console.log('error running query', err);
+                response.send("ERROR", err);
             }
             console.log(result.rows[0]);
             response.set('Content-Type', 'application/json');
             response.send(JSON.stringify({ data: result.rows.map(makeJSON) }));
-            //output: Tue Jan 15 2013 19:12:47 GMT-600 (CST)
-          //  response.send(result.rows[0].theTime);
         });
         done();
     });
