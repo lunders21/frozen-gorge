@@ -13,14 +13,14 @@ app.get('/', function(request, response) {
     var result = "result";
     
     pg.connect("postgres://ebzqldzdjabrhx:7YBhRVZ3KanjSCuPvGtTYAIcBT@ec2-54-163-238-96.compute-1.amazonaws.com:5432/d2u36iutqq574u", function(err, client) {
-
+        response.send("hubabuba");
         var query = client.query("SELECT ANTALL FROM REQUESTER WHERE BRUKER = '" + user + "'");
        
         query.on('row', function(row) {
             result = JSON.stringify(row);
         });
     });
-    
+
     response.send(result);
 });
 
@@ -30,7 +30,7 @@ app.post('/', function(request, response) {
     pg.connect("postgres://ebzqldzdjabrhx:7YBhRVZ3KanjSCuPvGtTYAIcBT@ec2-54-163-238-96.compute-1.amazonaws.com:5432/d2u36iutqq574u", function(err, client) {
 
         var query = client.query("INSERT INTO REQUESTER (ANTALL, BRUKER) VALUES ('2', 'testerbruker');");
-       
+
         query.on('row', function(row) {
             result = JSON.stringify(row);
         });
