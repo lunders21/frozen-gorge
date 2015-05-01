@@ -5,12 +5,11 @@ app.set('port', (process.env.PORT || 5000));
 app.use(express.static(__dirname + '/public'));
 
 app.get('/', function(request, response) {
-    if (request.method === "GET") {
-        response.send('GET request!');
-    }
-    if (request.method === "POST"){
-        response.send('POST request!');
-    }
+    response.send('GET request!');
+});
+
+app.post('/', function(request, response) {
+    response.send('POST request!');
 });
 
 app.listen(app.get('port'), function() {
