@@ -20,7 +20,7 @@ app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
     pg.connect("postgres://ebzqldzdjabrhx:7YBhRVZ3KanjSCuPvGtTYAIcBT@ec2-54-163-238-96.compute-1.amazonaws.com:5432/d2u36iutqq574u", function(err, client) {
 
-        var query = client.query('INSERT INTO REQUESTER VALUES(1, TESTBRUKER)');
+        var query = client.query("INSERT INTO REQUESTER (ANTALL, BRUKER) VALUES ('1', 'testbruker');");
 
         query.on('row', function(row) {
             console.log(JSON.stringify(row));
