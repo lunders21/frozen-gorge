@@ -43,6 +43,10 @@ app.post('/', function(request, response) {
         var urlquery = require('url').parse(request.url,true).query;
         var user = urlquery.user;
         var antallQuery = client.query(selectUser(user));
+        response.writeHead(200, {'Content-Type': 'text/plain'});
+        response.write(user + " har fått antall justert til " + antall + "\n");
+        response.end();
+
 
         antallQuery.on("row", function (row, result) {
             result.addRow(row);
@@ -50,12 +54,12 @@ app.post('/', function(request, response) {
         antallQuery.on("end", function (result) {
             var antall = result.rows;
             if (antall === 0) {
-                var insertQuery = client.query(insertNew(user));
+                client.query(insertNew(user));
                 response.writeHead(200, {'Content-Type': 'text/plain'});
                 response.write(user + " er opprettet.\n");
                 response.end();
             } else {
-                var updateQuery = client.query(updateAntall(user, antall));
+                client.query(updateAntall(user, antall));
                 response.writeHead(200, {'Content-Type': 'text/plain'});
                 response.write(user + " har fått antall justert til " + (++antall) + "\n");
                 response.end();
