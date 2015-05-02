@@ -15,9 +15,18 @@ var select_antall = function(request, response) {
         if(err) {
             response.send("ERROR", err);
         }
-        console.log(result.rows[0]);
-        response.set('Content-Type', 'application/json');
-        response.send(JSON.stringify({ data: result.rows.map(makeJSON) }));
+
+        query.on("row", function (row, result) {
+            result.addRow(row);
+        });
+        query.on("end", function (result) {
+// On end JSONify and write the results to console and to HTML output
+            console.log(JSON.stringify(result.rows, null, "    "));
+            response.writeHead(200, {'Content-Type': 'text/plain'});
+            response.write(JSON.stringify(result.rows) + "\n");
+            response.end();
+        });
+
     });
    // done();
 };
