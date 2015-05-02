@@ -44,7 +44,7 @@ app.post('/', function(request, response) {
         var user = urlquery.user;
         var antallQuery = client.query(selectUser(user));
         response.writeHead(200, {'Content-Type': 'text/plain'});
-        response.write(user + " har fått antall justert til " + antall + "\n");
+        response.write(user + " har fått antall justert til " + antallQuery + "\n");
         response.end();
 
 
