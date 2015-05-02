@@ -19,7 +19,7 @@ var select_antall = function(request, response) {
         response.set('Content-Type', 'application/json');
         response.send(JSON.stringify({ data: result.rows.map(makeJSON) }));
     });
-    done();
+   // done();
 };
 
 app.set('port', (process.env.PORT || 5000));
