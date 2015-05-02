@@ -8,27 +8,23 @@ client.connect();
 
 var select_antall = function(request, response) {
 
-    var query = require('url').parse(request.url,true).query;
-    var user = query.user;
+    var urlquery = require('url').parse(request.url,true).query;
+    var user = urlquery.user;
+    
+    var query = client.query("SELECT ANTALL FROM REQUESTER WHERE BRUKER = '" + user + "'");
 
-    client.query("SELECT ANTALL FROM REQUESTER WHERE BRUKER = '" + user + "'", function(err, result) {
-        if(err) {
-            response.send("ERROR", err);
-        }
 
-        query.on("row", function (row, result) {
-            result.addRow(row);
-        });
-        query.on("end", function (result) {
-// On end JSONify and write the results to console and to HTML output
-            console.log(JSON.stringify(result.rows, null, "    "));
-            response.writeHead(200, {'Content-Type': 'text/plain'});
-            response.write(JSON.stringify(result.rows) + "\n");
-            response.end();
-        });
-
+    query.on("row", function (row, result) {
+        result.addRow(row);
     });
-   // done();
+    query.on("end", function (result) {
+// On end JSONify and write the results to console and to HTML output
+        console.log(JSON.stringify(result.rows, null, "    "));
+        response.writeHead(200, {'Content-Type': 'text/plain'});
+        response.write(JSON.stringify(result.rows) + "\n");
+        response.end();
+    });
+
 };
 
 app.set('port', (process.env.PORT || 5000));
