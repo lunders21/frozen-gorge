@@ -8,8 +8,8 @@ client.connect();
 
 var select_antall = function(request, response) {
 
-//    var query = require('url').parse(request.url,true).query;
-//    var user = query.user;
+    var query = require('url').parse(request.url,true).query;
+    var user = query.user;
 
     client.query("SELECT ANTALL FROM REQUESTER WHERE BRUKER = '" + user + "'", function(err, result) {
         if(err) {
