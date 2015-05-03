@@ -7,30 +7,7 @@ var conString = "postgres://ebzqldzdjabrhx:7YBhRVZ3KanjSCuPvGtTYAIcBT@ec2-54-163
 var client = new pg.Client(conString);
 client.connect();
 
-var select_antall = function(request, response) {
 
-    var urlquery = require('url').parse(request.url,true).query;
-    var user = urlquery.user;
-    
-    var query = client.query(selectUser(user));
-
-
-    query.on("row", function (row, result) {
-        result.addRow(row);
-    });
-    query.on("end", function (result) {
-
-        
-        var dbResult = JSON.stringify(result.rows[0]);
-        var json = JSON.parse(dbResult);
-        var antall = json["antall"];
-
-        response.writeHead(200, {'Content-Type': 'text/plain'});
-        response.write(antall + "\n");
-        response.end();
-    });
-
-};
 
 app.set('port', (process.env.PORT || 5000));
 app.use(express.static(__dirname + '/public'));
@@ -53,9 +30,7 @@ app.post('/', function(request, response) {
             result.addRow(row);
         });
         antallQuery.on("end", function (result) {
-            var dbResult = JSON.stringify(result.rows[0]);
-            var json = JSON.parse(dbResult);
-            var antall = json["antall"];
+            var antall = getAntall(result);
             
             if (antall === 0) {
                 
@@ -63,7 +38,7 @@ app.post('/', function(request, response) {
                 insertQuery.on("row", function (row, result) {
                     result.addRow(row);
                 });
-                insertQuery.on("end", function (result) {
+                insertQuery.on("end", function () {
                     response.writeHead(200, {'Content-Type': 'text/plain'});
                     response.write(user + " er opprettet.\n");
                     response.end();
@@ -74,7 +49,7 @@ app.post('/', function(request, response) {
                 updateQuery.on("row", function (row, result) {
                     result.addRow(row);
                 });
-                updateQuery.on("end", function (result) {
+                updateQuery.on("end", function () {
                     response.writeHead(200, {'Content-Type': 'text/plain'});
                     response.write(user + " har fått antall justert til " + (++antall) + "\n");
                     response.end();
@@ -84,6 +59,33 @@ app.post('/', function(request, response) {
         });
     });
 });
+
+function getAntall(result) {
+    var dbResult = JSON.stringify(result.rows[0]);
+    var json = JSON.parse(dbResult);
+    return json["antall"];
+}
+
+var select_antall = function(request, response) {
+
+    var urlquery = require('url').parse(request.url,true).query;
+    var user = urlquery.user;
+    var query = client.query(selectUser(user));
+
+
+    query.on("row", function (row, result) {
+        result.addRow(row);
+    });
+    query.on("end", function (result) {
+        var antall = getAntall(result);
+
+        response.writeHead(200, {'Content-Type': 'text/plain'});
+        response.write(user + " er registrert med antall: " + antall + "\n");
+        response.end();
+    });
+
+};
+
 
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
