@@ -23,7 +23,8 @@ var select_antall = function(request, response) {
         console.log(JSON.stringify(result.rows, null, "    "));
         response.writeHead(200, {'Content-Type': 'text/plain'});
         var teststring = JSON.stringify(result.rows);
-        var output = teststring.antall;
+        var json = JSON.parse(teststring);
+        var output = json.antall;
         //      response.write(JSON.stringify(result.rows) + "\n");
         response.write(output + "\n");
         response.end();
