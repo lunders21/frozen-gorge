@@ -43,9 +43,6 @@ app.post('/', function(request, response) {
         var urlquery = require('url').parse(request.url,true).query;
         var user = urlquery.user;
         var antallQuery = client.query(selectUser(user));
-        response.writeHead(200, {'Content-Type': 'text/plain'});
-        response.write(user + " har fått antall justert til " + antallQuery + "\n");
-        response.end();
 
 
         antallQuery.on("row", function (row, result) {
@@ -54,15 +51,27 @@ app.post('/', function(request, response) {
         antallQuery.on("end", function (result) {
             var antall = result.rows;
             if (antall === 0) {
-                client.query(insertNew(user));
-                response.writeHead(200, {'Content-Type': 'text/plain'});
-                response.write(user + " er opprettet.\n");
-                response.end();
+                
+                var insertQuery = client.query(insertNew(user));
+                insertQuery.on("row", function (row, result) {
+                    result.addRow(row);
+                });
+                insertQuery.on("end", function (result) {
+                    response.writeHead(200, {'Content-Type': 'text/plain'});
+                    response.write(user + " er opprettet.\n");
+                    response.end();
+                });
+
             } else {
-                client.query(updateAntall(user, antall));
-                response.writeHead(200, {'Content-Type': 'text/plain'});
-                response.write(user + " har fått antall justert til " + (++antall) + "\n");
-                response.end();
+                var updateQuery = client.query(updateAntall(user, antall));
+                updateQuery.on("row", function (row, result) {
+                    result.addRow(row);
+                });
+                updateQuery.on("end", function (result) {
+                    response.writeHead(200, {'Content-Type': 'text/plain'});
+                    response.write(user + " har fått antall justert til " + (++antall) + "\n");
+                    response.end();
+                });
             }
            
         });
