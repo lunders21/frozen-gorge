@@ -20,13 +20,13 @@ var select_antall = function(request, response) {
     });
     query.on("end", function (result) {
 
-        console.log(JSON.stringify(result.rows, null, "    "));
+        
+        var dbResult = JSON.stringify(result.rows[0]);
+        var json = JSON.parse(dbResult);
+        var antall = json["antall"];
+
         response.writeHead(200, {'Content-Type': 'text/plain'});
-        var teststring = JSON.stringify(result.rows[0]);
-        var json = JSON.parse(teststring);
-        var output = json["antall"];
-        //      response.write(JSON.stringify(result.rows) + "\n");
-        response.write(output + "\n");
+        response.write(antall + "\n");
         response.end();
     });
 
@@ -53,7 +53,10 @@ app.post('/', function(request, response) {
             result.addRow(row);
         });
         antallQuery.on("end", function (result) {
-            var antall = result.rows;
+            var dbResult = JSON.stringify(result.rows[0]);
+            var json = JSON.parse(dbResult);
+            var antall = json["antall"];
+            
             if (antall === 0) {
                 
                 var insertQuery = client.query(insertNew(user));
