@@ -61,9 +61,14 @@ app.post('/', function(request, response) {
 });
 
 function getAntall(result) {
-    var dbResult = JSON.stringify(result.rows[0]);
-    var json = JSON.parse(dbResult);
-    return json["antall"];
+    try {
+        var dbResult = JSON.stringify(result.rows[0]);
+        var json = JSON.parse(dbResult);
+        return json["antall"];
+    } catch (error) {
+        return 0;
+    }
+    
 }
 
 var select_antall = function(request, response) {
