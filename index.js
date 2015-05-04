@@ -101,14 +101,24 @@ var select_antall = function(request, response) {
     });
     query.on("end", function (result) {
         var antall = getAntall(result);
-        var totalt = getAntallTotalt();
 
-        response.writeHead(200, {'Content-Type': 'text/plain'});
-        response.write(user + " er registrert med antall: " + antall + "\n");
-        response.write("Totalt er det registrert: " + totalt + "\n");
-        response.end();
+
+        var totaltQuery = client.query(totalClicks());
+
+        totaltQuery.on("row", function (row, result) {
+            result.addRow(row);
+        });
+        totaltQuery.on("end", function (result) {
+            var dbResult = JSON.stringify(result.rows[0]);
+            var json = JSON.parse(dbResult);
+            var totalt = json["sum"];
+            
+            response.writeHead(200, {'Content-Type': 'text/plain'});
+            response.write(user + " er registrert med antall: " + antall + "\n");
+            response.write("Totalt er det registrert: " + totalt + "\n");
+            response.end();
+        });
     });
-
 };
 
 
