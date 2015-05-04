@@ -82,12 +82,19 @@ function getAntallTotalt() {
         result.addRow(row);
     });
     query.on("end", function (result) {
-        var dbResult = JSON.stringify(result.rows[0]);
-        var json = JSON.parse(dbResult);
-        return dbResult;
+        try{
+            var dbResult = JSON.stringify(result.rows[0]);
+            var json = JSON.parse(dbResult);
+            return dbResult;
+            
+        } catch (error){
+            return "YOLO";
+            
+        }
+       
        // return json["sum"];
     });
-
+    return "DOLO";
 }
 
 var select_antall = function(request, response) {
