@@ -12,6 +12,10 @@ client.connect();
 app.set('port', (process.env.PORT || 5000));
 app.use(express.static(__dirname + '/public'));
 
+app.get('/totalt', function(request, response) {
+    get_antall_totalt(request, response);
+});
+
 app.get('/', function(request, response) {
     select_antall(request, response);
 });
@@ -71,6 +75,25 @@ function getAntall(result) {
     
 }
 
+var get_antall_totalt = function(request, response) {
+
+   
+    var query = client.query(totalClicks());
+
+
+    query.on("row", function (row, result) {
+        result.addRow(row);
+    });
+    query.on("end", function (result) {
+        var antall = getAntall(result);
+
+        response.writeHead(200, {'Content-Type': 'text/plain'});
+        response.write("Det er totalt registrert " + antall + "klikk! \n");
+        response.end();
+    });
+
+};
+
 var select_antall = function(request, response) {
 
     var urlquery = require('url').parse(request.url,true).query;
@@ -92,6 +115,7 @@ var select_antall = function(request, response) {
 };
 
 
+
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
 
@@ -106,6 +130,9 @@ function updateAntall(user, antall) {
 }
 
 function selectUser(user) {
-    return "SELECT ANTALL FROM REQUESTER WHERE BRUKER = '" + user + "';"
+    return "SELECT ANTALL FROM REQUESTER WHERE BRUKER = '" + user + "';";
 }
 
+function totalClicks() {
+    return "SELECT SUM(ANTALL) FROM REQUESTER;";
+}
