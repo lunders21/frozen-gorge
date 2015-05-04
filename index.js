@@ -76,8 +76,6 @@ function getAntall(result) {
 }
 
 var get_antall_totalt = function(request, response) {
-
-   
     var query = client.query(totalClicks());
 
 
@@ -85,10 +83,11 @@ var get_antall_totalt = function(request, response) {
         result.addRow(row);
     });
     query.on("end", function (result) {
-        var antall = getAntall(result);
+        var antall = JSON.stringify(result.rows[0]);
+        //    var antall = getAntall(result);
 
         response.writeHead(200, {'Content-Type': 'text/plain'});
-        response.write("Det er totalt registrert " + antall + "klikk! \n");
+        response.write("Det er totalt registrert " + antall + " klikk! \n");
         response.end();
     });
 
