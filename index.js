@@ -79,23 +79,14 @@ function getAntallTotalt() {
     var totaltQuery = client.query(totalClicks());
 
     totaltQuery.on("row", function (row, result) {
-        return "FOLO";
         result.addRow(row);
     });
     totaltQuery.on("end", function (result) {
-        try{
-            var dbResult = JSON.stringify(result.rows[0]);
-            var json = JSON.parse(dbResult);
-            return dbResult;
-            
-        } catch (error){
-            return "YOLO";
-            
-        }
-       
-       // return json["sum"];
+        var dbResult = JSON.stringify(result.rows[0]);
+        var json = JSON.parse(dbResult);
+        return json["sum"];
     });
-    return "DOLO";
+    return totaltQuery;
 }
 
 var select_antall = function(request, response) {
