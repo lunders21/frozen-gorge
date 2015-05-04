@@ -75,7 +75,7 @@ function getAntall(result) {
     
 }
 
-var get_antall_totalt = function() {
+function getAntallTotalt() {
     var query = client.query(totalClicks());
     
     query.on("row", function (row, result) {
@@ -87,7 +87,7 @@ var get_antall_totalt = function() {
         return json["sum"];
     });
 
-};
+}
 
 var select_antall = function(request, response) {
 
@@ -101,10 +101,11 @@ var select_antall = function(request, response) {
     });
     query.on("end", function (result) {
         var antall = getAntall(result);
+        var totalt = getAntallTotalt();
 
         response.writeHead(200, {'Content-Type': 'text/plain'});
         response.write(user + " er registrert med antall: " + antall + "\n");
-        response.write("Totalt er det registrert: " + get_antall_totalt() + "\n");
+        response.write("Totalt er det registrert: " + totalt + "\n");
         response.end();
     });
 
