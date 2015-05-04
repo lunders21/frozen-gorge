@@ -76,12 +76,13 @@ function getAntall(result) {
 }
 
 function getAntallTotalt() {
-    var query = client.query(totalClicks());
-    
-    query.on("row", function (row, result) {
+    var totaltQuery = client.query(totalClicks());
+
+    totaltQuery.on("row", function (row, result) {
+        return "FOLO";
         result.addRow(row);
     });
-    query.on("end", function (result) {
+    totaltQuery.on("end", function (result) {
         try{
             var dbResult = JSON.stringify(result.rows[0]);
             var json = JSON.parse(dbResult);
