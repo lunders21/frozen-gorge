@@ -7,8 +7,6 @@ var conString = "postgres://ebzqldzdjabrhx:7YBhRVZ3KanjSCuPvGtTYAIcBT@ec2-54-163
 var client = new pg.Client(conString);
 client.connect();
 
-
-
 app.set('port', (process.env.PORT || 5000));
 app.use(express.static(__dirname + '/public'));
 
@@ -24,7 +22,6 @@ app.post('/', function(request, response) {
 
     var result = "result";
     pg.connect(conString, function(err, client) {
-
         var urlquery = require('url').parse(request.url,true).query;
         var user = urlquery.user;
         var antallQuery = client.query(selectUser(user));
@@ -75,34 +72,16 @@ function getAntall(result) {
     
 }
 
-function getAntallTotalt() {
-    var totaltQuery = client.query(totalClicks());
-
-    totaltQuery.on("row", function (row, result) {
-        result.addRow(row);
-    });
-    totaltQuery.on("end", function (result) {
-        var dbResult = JSON.stringify(result.rows[0]);
-        var json = JSON.parse(dbResult);
-        return json["sum"];
-    });
-    return totaltQuery;
-}
-
 var select_antall = function(request, response) {
-
     var urlquery = require('url').parse(request.url,true).query;
     var user = urlquery.user;
     var query = client.query(selectUser(user));
-
 
     query.on("row", function (row, result) {
         result.addRow(row);
     });
     query.on("end", function (result) {
         var antall = getAntall(result);
-
-
         var totaltQuery = client.query(totalClicks());
 
         totaltQuery.on("row", function (row, result) {
