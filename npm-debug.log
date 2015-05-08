@@ -1,0 +1,293 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'node', '/usr/local/bin/npm', 'install', '-g', 'postgresql' ]
+2 info using npm@2.7.4
+3 info using node@v0.12.2
+4 silly cache add args [ 'postgresql', null ]
+5 verbose cache add spec postgresql
+6 silly cache add parsed spec { raw: 'postgresql',
+6 silly cache add   scope: null,
+6 silly cache add   name: 'postgresql',
+6 silly cache add   rawSpec: '',
+6 silly cache add   spec: '*',
+6 silly cache add   type: 'range' }
+7 verbose addNamed postgresql@*
+8 silly addNamed semver.valid null
+9 silly addNamed semver.validRange *
+10 silly addNameRange { name: 'postgresql', range: '*', hasData: false }
+11 silly mapToRegistry name postgresql
+12 silly mapToRegistry using default registry
+13 silly mapToRegistry registry https://registry.npmjs.org/
+14 silly mapToRegistry uri https://registry.npmjs.org/postgresql
+15 verbose addNameRange registry:https://registry.npmjs.org/postgresql not in flight; fetching
+16 verbose request uri https://registry.npmjs.org/postgresql
+17 verbose request no auth needed
+18 info attempt registry request try #1 at 5:43:59 PM
+19 verbose request id b1998bee1e550f30
+20 http request GET https://registry.npmjs.org/postgresql
+21 http 200 https://registry.npmjs.org/postgresql
+22 silly get cb [ 200,
+22 silly get   { server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+22 silly get     etag: '"1RHYORQQ1HHB0OB4N26ZD6KAT"',
+22 silly get     'content-type': 'application/json',
+22 silly get     'cache-control': 'max-age=60',
+22 silly get     'content-length': '1910',
+22 silly get     'accept-ranges': 'bytes',
+22 silly get     date: 'Fri, 01 May 2015 15:44:00 GMT',
+22 silly get     via: '1.1 varnish',
+22 silly get     age: '0',
+22 silly get     connection: 'keep-alive',
+22 silly get     'x-served-by': 'cache-fra1241-FRA',
+22 silly get     'x-cache': 'MISS',
+22 silly get     'x-cache-hits': '0',
+22 silly get     'x-timer': 'S1430495039.479476,VS0,VE732',
+22 silly get     vary: 'Accept' } ]
+23 verbose get saving postgresql to /Users/andreas lund/.npm/registry.npmjs.org/postgresql/.cache.json
+24 silly addNameRange number 2 { name: 'postgresql', range: '*', hasData: true }
+25 silly addNameRange versions [ 'postgresql', [ '0.0.1' ] ]
+26 verbose addNamed postgresql@0.0.1
+27 silly addNamed semver.valid 0.0.1
+28 silly addNamed semver.validRange 0.0.1
+29 silly mapToRegistry name postgresql
+30 silly mapToRegistry using default registry
+31 silly mapToRegistry registry https://registry.npmjs.org/
+32 silly mapToRegistry uri https://registry.npmjs.org/postgresql
+33 verbose addRemoteTarball https://registry.npmjs.org/postgresql/-/postgresql-0.0.1.tgz not in flight; adding
+34 verbose addRemoteTarball [ 'https://registry.npmjs.org/postgresql/-/postgresql-0.0.1.tgz',
+34 verbose addRemoteTarball   'f07c179d937e0c54ee735a15eb2e462b1967ab70' ]
+35 info retry fetch attempt 1 at 5:44:00 PM
+36 info attempt registry request try #1 at 5:44:00 PM
+37 http fetch GET https://registry.npmjs.org/postgresql/-/postgresql-0.0.1.tgz
+38 http fetch 200 https://registry.npmjs.org/postgresql/-/postgresql-0.0.1.tgz
+39 silly fetchAndShaCheck shasum f07c179d937e0c54ee735a15eb2e462b1967ab70
+40 verbose addTmpTarball /tmp/npm-46666-0e9c1daa/registry.npmjs.org/postgresql/-/postgresql-0.0.1.tgz not in flight; adding
+41 verbose addTmpTarball already have metadata; skipping unpack for postgresql@0.0.1
+42 silly cache afterAdd postgresql@0.0.1
+43 verbose afterAdd /Users/andreas lund/.npm/postgresql/0.0.1/package/package.json not in flight; writing
+44 verbose afterAdd /Users/andreas lund/.npm/postgresql/0.0.1/package/package.json written
+45 silly install resolved [ { name: 'postgresql',
+45 silly install resolved     description: 'An NPM wrapper for PostgreSQL.',
+45 silly install resolved     version: '0.0.1',
+45 silly install resolved     homepage: 'https://github.com/tkellen/node-postgresql',
+45 silly install resolved     author: { name: 'Tyler Kellen', url: 'http://goingslowly.com/' },
+45 silly install resolved     repository:
+45 silly install resolved      { type: 'git',
+45 silly install resolved        url: 'git://github.com/tkellen/node-postgresql.git' },
+45 silly install resolved     bugs: { url: 'https://github.com/tkellen/node-postgresql/issues' },
+45 silly install resolved     licenses: [ [Object] ],
+45 silly install resolved     main: 'index.js',
+45 silly install resolved     engines: { node: '>= 0.10.0' },
+45 silly install resolved     scripts: { install: 'node install.js', test: 'mocha -R spec test/' },
+45 silly install resolved     keywords: [ 'postgresql', 'postgres', 'pgsql' ],
+45 silly install resolved     devDependencies:
+45 silly install resolved      { chai: '^1.9.1',
+45 silly install resolved        mocha: '^1.18.2',
+45 silly install resolved        mkdirp: '^0.5.0',
+45 silly install resolved        rimraf: '^2.2.8' },
+45 silly install resolved     dependencies: { 'empty-dir': '^0.1.0' },
+45 silly install resolved     _id: 'postgresql@0.0.1',
+45 silly install resolved     dist:
+45 silly install resolved      { shasum: 'f07c179d937e0c54ee735a15eb2e462b1967ab70',
+45 silly install resolved        tarball: 'http://registry.npmjs.org/postgresql/-/postgresql-0.0.1.tgz' },
+45 silly install resolved     _from: 'postgresql@*',
+45 silly install resolved     _npmVersion: '1.4.3',
+45 silly install resolved     _npmUser: { name: 'tkellen', email: 'tyler@sleekcode.net' },
+45 silly install resolved     maintainers: [ [Object] ],
+45 silly install resolved     directories: {},
+45 silly install resolved     _shasum: 'f07c179d937e0c54ee735a15eb2e462b1967ab70',
+45 silly install resolved     _resolved: 'https://registry.npmjs.org/postgresql/-/postgresql-0.0.1.tgz' } ]
+46 info install postgresql@0.0.1 into /usr/local/lib
+47 info installOne postgresql@0.0.1
+48 verbose installOne of postgresql to /usr/local/lib not in flight; installing
+49 verbose lock using /Users/andreas lund/.npm/_locks/postgresql-43d0b98f98f55132.lock for /usr/local/lib/node_modules/postgresql
+50 silly install write writing postgresql 0.0.1 to /usr/local/lib/node_modules/postgresql
+51 silly cache addNamed cb postgresql@0.0.1
+52 verbose unbuild lib/node_modules/postgresql
+53 silly gentlyRm /usr/local/lib/node_modules/postgresql is being purged from base /usr/local
+54 verbose gentlyRm don't care about contents; nuking /usr/local/lib/node_modules/postgresql
+55 verbose tar unpack /Users/andreas lund/.npm/postgresql/0.0.1/package.tgz
+56 verbose tar unpacking to /usr/local/lib/node_modules/postgresql
+57 silly gentlyRm /usr/local/lib/node_modules/postgresql is being purged
+58 verbose gentlyRm don't care about contents; nuking /usr/local/lib/node_modules/postgresql
+59 silly gunzTarPerm modes [ '755', '644' ]
+60 silly gunzTarPerm extractEntry package.json
+61 silly gunzTarPerm extractEntry .npmignore
+62 silly gunzTarPerm extractEntry README.md
+63 silly gunzTarPerm extractEntry LICENSE
+64 silly gunzTarPerm extractEntry index.js
+65 silly gunzTarPerm extractEntry install.js
+66 silly gunzTarPerm extractEntry test/index.js
+67 info preinstall postgresql@0.0.1
+68 silly prepareForInstallMany adding empty-dir@^0.1.0 from postgresql dependencies
+69 silly cache add args [ 'empty-dir@^0.1.0', null ]
+70 verbose cache add spec empty-dir@^0.1.0
+71 silly cache add parsed spec { raw: 'empty-dir@^0.1.0',
+71 silly cache add   scope: null,
+71 silly cache add   name: 'empty-dir',
+71 silly cache add   rawSpec: '^0.1.0',
+71 silly cache add   spec: '>=0.1.0 <0.2.0',
+71 silly cache add   type: 'range' }
+72 verbose addNamed empty-dir@>=0.1.0 <0.2.0
+73 silly addNamed semver.valid null
+74 silly addNamed semver.validRange >=0.1.0 <0.2.0
+75 silly addNameRange { name: 'empty-dir', range: '>=0.1.0 <0.2.0', hasData: false }
+76 silly mapToRegistry name empty-dir
+77 silly mapToRegistry using default registry
+78 silly mapToRegistry registry https://registry.npmjs.org/
+79 silly mapToRegistry uri https://registry.npmjs.org/empty-dir
+80 verbose addNameRange registry:https://registry.npmjs.org/empty-dir not in flight; fetching
+81 verbose request uri https://registry.npmjs.org/empty-dir
+82 verbose request no auth needed
+83 info attempt registry request try #1 at 5:44:01 PM
+84 http request GET https://registry.npmjs.org/empty-dir
+85 http 200 https://registry.npmjs.org/empty-dir
+86 silly get cb [ 200,
+86 silly get   { server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+86 silly get     etag: '"16UVJ5AJTJ2CFKK8YCEFQTCUF"',
+86 silly get     'content-type': 'application/json',
+86 silly get     'cache-control': 'max-age=60',
+86 silly get     'content-length': '2393',
+86 silly get     'accept-ranges': 'bytes',
+86 silly get     date: 'Fri, 01 May 2015 15:44:02 GMT',
+86 silly get     via: '1.1 varnish',
+86 silly get     age: '0',
+86 silly get     connection: 'keep-alive',
+86 silly get     'x-served-by': 'cache-fra1235-FRA',
+86 silly get     'x-cache': 'MISS',
+86 silly get     'x-cache-hits': '0',
+86 silly get     'x-timer': 'S1430495041.490041,VS0,VE716',
+86 silly get     vary: 'Accept' } ]
+87 verbose get saving empty-dir to /Users/andreas lund/.npm/registry.npmjs.org/empty-dir/.cache.json
+88 silly addNameRange number 2 { name: 'empty-dir', range: '>=0.1.0 <0.2.0', hasData: true }
+89 silly addNameRange versions [ 'empty-dir', [ '0.1.0' ] ]
+90 verbose addNamed empty-dir@0.1.0
+91 silly addNamed semver.valid 0.1.0
+92 silly addNamed semver.validRange 0.1.0
+93 silly mapToRegistry name empty-dir
+94 silly mapToRegistry using default registry
+95 silly mapToRegistry registry https://registry.npmjs.org/
+96 silly mapToRegistry uri https://registry.npmjs.org/empty-dir
+97 verbose addRemoteTarball https://registry.npmjs.org/empty-dir/-/empty-dir-0.1.0.tgz not in flight; adding
+98 verbose addRemoteTarball [ 'https://registry.npmjs.org/empty-dir/-/empty-dir-0.1.0.tgz',
+98 verbose addRemoteTarball   '4915bd8b63773c3f458b2dc50339c908849c84f0' ]
+99 info retry fetch attempt 1 at 5:44:02 PM
+100 info attempt registry request try #1 at 5:44:02 PM
+101 http fetch GET https://registry.npmjs.org/empty-dir/-/empty-dir-0.1.0.tgz
+102 http fetch 200 https://registry.npmjs.org/empty-dir/-/empty-dir-0.1.0.tgz
+103 silly fetchAndShaCheck shasum 4915bd8b63773c3f458b2dc50339c908849c84f0
+104 verbose addTmpTarball /tmp/npm-46666-0e9c1daa/registry.npmjs.org/empty-dir/-/empty-dir-0.1.0.tgz not in flight; adding
+105 verbose addTmpTarball already have metadata; skipping unpack for empty-dir@0.1.0
+106 silly cache afterAdd empty-dir@0.1.0
+107 verbose afterAdd /Users/andreas lund/.npm/empty-dir/0.1.0/package/package.json not in flight; writing
+108 verbose afterAdd /Users/andreas lund/.npm/empty-dir/0.1.0/package/package.json written
+109 silly install resolved [ { name: 'empty-dir',
+109 silly install resolved     description: 'Check if a directory is empty.',
+109 silly install resolved     version: '0.1.0',
+109 silly install resolved     homepage: 'https://github.com/tkellen/node-empty-dir',
+109 silly install resolved     author: { name: 'Tyler Kellen', url: 'http://goingslowly.com/' },
+109 silly install resolved     repository:
+109 silly install resolved      { type: 'git',
+109 silly install resolved        url: 'git://github.com/tkellen/node-empty-dir.git' },
+109 silly install resolved     bugs: { url: 'https://github.com/tkellen/node-empty-dir/issues' },
+109 silly install resolved     licenses: [ [Object] ],
+109 silly install resolved     main: 'index.js',
+109 silly install resolved     engines: { node: '>= 0.8.0' },
+109 silly install resolved     scripts: { test: 'mocha -R spec test' },
+109 silly install resolved     devDependencies: { chai: '~1.9.1', mocha: '~1.18.2' },
+109 silly install resolved     keywords: [ 'empty directory', 'empty dir', 'empty folder' ],
+109 silly install resolved     _id: 'empty-dir@0.1.0',
+109 silly install resolved     dist:
+109 silly install resolved      { shasum: '4915bd8b63773c3f458b2dc50339c908849c84f0',
+109 silly install resolved        tarball: 'http://registry.npmjs.org/empty-dir/-/empty-dir-0.1.0.tgz' },
+109 silly install resolved     _from: 'empty-dir@>=0.1.0 <0.2.0',
+109 silly install resolved     _npmVersion: '1.4.3',
+109 silly install resolved     _npmUser: { name: 'tkellen', email: 'tyler@sleekcode.net' },
+109 silly install resolved     maintainers: [ [Object] ],
+109 silly install resolved     directories: {},
+109 silly install resolved     _shasum: '4915bd8b63773c3f458b2dc50339c908849c84f0',
+109 silly install resolved     _resolved: 'https://registry.npmjs.org/empty-dir/-/empty-dir-0.1.0.tgz' } ]
+110 info install empty-dir@0.1.0 into /usr/local/lib/node_modules/postgresql
+111 info installOne empty-dir@0.1.0
+112 verbose installOne of empty-dir to /usr/local/lib/node_modules/postgresql not in flight; installing
+113 verbose lock using /Users/andreas lund/.npm/_locks/empty-dir-25b6fab4aacfb91a.lock for /usr/local/lib/node_modules/postgresql/node_modules/empty-dir
+114 silly install write writing empty-dir 0.1.0 to /usr/local/lib/node_modules/postgresql/node_modules/empty-dir
+115 silly cache addNamed cb empty-dir@0.1.0
+116 verbose unbuild lib/node_modules/postgresql/node_modules/empty-dir
+117 silly gentlyRm /usr/local/lib/node_modules/postgresql/node_modules/empty-dir is being purged from base /usr/local
+118 verbose gentlyRm don't care about contents; nuking /usr/local/lib/node_modules/postgresql/node_modules/empty-dir
+119 verbose tar unpack /Users/andreas lund/.npm/empty-dir/0.1.0/package.tgz
+120 verbose tar unpacking to /usr/local/lib/node_modules/postgresql/node_modules/empty-dir
+121 silly gentlyRm /usr/local/lib/node_modules/postgresql/node_modules/empty-dir is being purged
+122 verbose gentlyRm don't care about contents; nuking /usr/local/lib/node_modules/postgresql/node_modules/empty-dir
+123 silly gunzTarPerm modes [ '755', '644' ]
+124 silly gunzTarPerm extractEntry package.json
+125 silly gunzTarPerm extractEntry .npmignore
+126 silly gunzTarPerm extractEntry README.md
+127 silly gunzTarPerm extractEntry LICENSE
+128 silly gunzTarPerm extractEntry index.js
+129 silly gunzTarPerm extractEntry .jshintrc
+130 silly gunzTarPerm extractEntry .travis.yml
+131 info preinstall empty-dir@0.1.0
+132 silly install resolved []
+133 verbose about to build /usr/local/lib/node_modules/postgresql/node_modules/empty-dir
+134 info build /usr/local/lib/node_modules/postgresql/node_modules/empty-dir
+135 verbose linkStuff [ true,
+135 verbose linkStuff   '/usr/local/lib/node_modules',
+135 verbose linkStuff   false,
+135 verbose linkStuff   '/usr/local/lib/node_modules/postgresql/node_modules' ]
+136 info linkStuff empty-dir@0.1.0
+137 verbose linkBins empty-dir@0.1.0
+138 verbose linkMans empty-dir@0.1.0
+139 verbose rebuildBundles empty-dir@0.1.0
+140 info install empty-dir@0.1.0
+141 info postinstall empty-dir@0.1.0
+142 verbose unlock done using /Users/andreas lund/.npm/_locks/empty-dir-25b6fab4aacfb91a.lock for /usr/local/lib/node_modules/postgresql/node_modules/empty-dir
+143 verbose about to build /usr/local/lib/node_modules/postgresql
+144 info build /usr/local/lib/node_modules/postgresql
+145 verbose linkStuff [ true,
+145 verbose linkStuff   '/usr/local/lib/node_modules',
+145 verbose linkStuff   true,
+145 verbose linkStuff   '/usr/local/lib/node_modules' ]
+146 info linkStuff postgresql@0.0.1
+147 verbose linkBins postgresql@0.0.1
+148 verbose linkMans postgresql@0.0.1
+149 verbose rebuildBundles postgresql@0.0.1
+150 verbose rebuildBundles [ 'empty-dir' ]
+151 info install postgresql@0.0.1
+152 verbose unsafe-perm in lifecycle false
+153 info postgresql@0.0.1 Failed to exec install script
+154 verbose unlock done using /Users/andreas lund/.npm/_locks/postgresql-43d0b98f98f55132.lock for /usr/local/lib/node_modules/postgresql
+155 verbose stack Error: postgresql@0.0.1 install: `node install.js`
+155 verbose stack Exit status 127
+155 verbose stack     at EventEmitter.<anonymous> (/usr/local/Cellar/node/0.10.12/lib/node_modules/npm/lib/utils/lifecycle.js:213:16)
+155 verbose stack     at EventEmitter.emit (events.js:110:17)
+155 verbose stack     at ChildProcess.<anonymous> (/usr/local/Cellar/node/0.10.12/lib/node_modules/npm/lib/utils/spawn.js:14:12)
+155 verbose stack     at ChildProcess.emit (events.js:110:17)
+155 verbose stack     at maybeClose (child_process.js:1015:16)
+155 verbose stack     at Process.ChildProcess._handle.onexit (child_process.js:1087:5)
+156 verbose pkgid postgresql@0.0.1
+157 verbose cwd /Users/andreas lund/Documents/node-js-getting-started
+158 error Darwin 14.3.0
+159 error argv "node" "/usr/local/bin/npm" "install" "-g" "postgresql"
+160 error node v0.12.2
+161 error npm  v2.7.4
+162 error code ELIFECYCLE
+163 error postgresql@0.0.1 install: `node install.js`
+163 error Exit status 127
+164 error Failed at the postgresql@0.0.1 install script 'node install.js'.
+164 error This is most likely a problem with the postgresql package,
+164 error not with npm itself.
+164 error Tell the author that this fails on your system:
+164 error     node install.js
+164 error You can get their info via:
+164 error     npm owner ls postgresql
+164 error There is likely additional logging output above.
+165 verbose exit [ 1, true ]
+166 verbose unbuild lib/node_modules/postgresql
+167 info preuninstall postgresql@0.0.1
+168 info uninstall postgresql@0.0.1
+169 verbose unbuild rmStuff postgresql@0.0.1 from /usr/local/lib/node_modules
+170 info postuninstall postgresql@0.0.1
+171 silly gentlyRm /usr/local/lib/node_modules/postgresql is being purged from base /usr/local
+172 verbose gentlyRm don't care about contents; nuking /usr/local/lib/node_modules/postgresql
+173 silly vacuum-fs purging /usr/local/lib/node_modules/postgresql
+174 silly vacuum-fs quitting because other entries in /usr/local/lib/node_modules
