@@ -11,7 +11,7 @@ app.set('port', (process.env.PORT || 5000));
 app.use(express.static(__dirname + '/public'));
 
 app.get('/totalt', function(request, response) {
-    get_antall_totalt(request, response);
+    totalt(request, response);
 });
 
 app.get('/', function(request, response) {
@@ -69,7 +69,7 @@ function getAntall(result) {
     }
 }
 
-var get_antall_totalt = function(request, response) {
+var totalt = function(request, response) {
     var query = client.query(totalClicks());
 
     query.on("row", function (row, result) {
@@ -84,7 +84,7 @@ var get_antall_totalt = function(request, response) {
         response.write("Totalt er det registrert: " + totalt + "\n");
         response.end();
     });
-}
+};
 
 var select_antall = function(request, response) {
     var urlquery = require('url').parse(request.url,true).query;
