@@ -2,8 +2,8 @@ var express = require('express');
 var app = express();
 var pg = require('pg');
 
-var conString = "postgres://ebzqldzdjabrhx:7YBhRVZ3KanjSCuPvGtTYAIcBT@ec2-54-163-238-96.compute-1.amazonaws.com:5432/d2u36iutqq574u";
-
+//var conString = "postgres://ebzqldzdjabrhx:7YBhRVZ3KanjSCuPvGtTYAIcBT@ec2-54-163-238-96.compute-1.amazonaws.com:5432/d2u36iutqq574u";
+var conString = process.env.DATABASE_URL;
 var client = new pg.Client(conString);
 client.connect();
 
