@@ -24,6 +24,7 @@ app.post('/', function(request, response) {
     pg.connect(conString, function(err, client) {
         var urlquery = require('url').parse(request.url,true).query;
         var user = urlquery.user;
+        var urlParameterAntall = urlquery.antall;
         var antallQuery = client.query(selectUser(user));
 
 
@@ -32,9 +33,7 @@ app.post('/', function(request, response) {
         });
         antallQuery.on("end", function (result) {
             var antall = getAntall(result);
-            
             if (antall === 0) {
-                
                 var insertQuery = client.query(insertNew(user));
                 insertQuery.on("row", function (row, result) {
                     result.addRow(row);
@@ -44,19 +43,18 @@ app.post('/', function(request, response) {
                     response.write(user + " er opprettet.\n");
                     response.end();
                 });
-
             } else {
-                var updateQuery = client.query(updateAntall(user, antall));
+                var updateQuery = client.query(updateAntall(user, urlParameterAntall));
                 updateQuery.on("row", function (row, result) {
                     result.addRow(row);
                 });
                 updateQuery.on("end", function () {
                     response.writeHead(200, {'Content-Type': 'text/plain'});
-                    response.write(user + " har fått antall justert til " + (++antall) + "\n");
+                    response.write(user + " har fått antall justert til " + urlParameterAntall + "\n");
                     response.end();
                 });
+                
             }
-           
         });
     });
 });
@@ -69,7 +67,23 @@ function getAntall(result) {
     } catch (error) {
         return 0;
     }
-    
+}
+
+var get_antall_totalt = function(request, response) {
+    var query = client.query(totalClicks());
+
+    query.on("row", function (row, result) {
+        result.addRow(row);
+    });
+    query.on("end", function (result) {
+        var dbResult = JSON.stringify(result.rows[0]);
+        var json = JSON.parse(dbResult);
+        var totalt = json["sum"];
+
+        response.writeHead(200, {'Content-Type': 'text/plain'});
+        response.write("Totalt er det registrert: " + totalt + "\n");
+        response.end();
+    });
 }
 
 var select_antall = function(request, response) {
@@ -112,7 +126,7 @@ function insertNew(user) {
 }
 
 function updateAntall(user, antall) {
-    return "UPDATE REQUESTER SET ANTALL = '" + (++antall) + "' WHERE BRUKER = '" + user + "';";
+    return "UPDATE REQUESTER SET ANTALL = '" + antall + "' WHERE BRUKER = '" + user + "';";
 }
 
 function selectUser(user) {
