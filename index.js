@@ -33,7 +33,7 @@ app.post('/', function(request, response) {
         antallQuery.on("end", function (result) {
             var antall = getAntall(result);
             if (antall === 0) {
-                var insertQuery = client.query(insertNew(user));
+                var insertQuery = client.query(insertNew(user, urlParameterAntall));
                 insertQuery.on("row", function (row, result) {
                     result.addRow(row);
                 });
@@ -120,8 +120,8 @@ app.listen(app.get('port'), function() {
 
 });
 
-function insertNew(user) {
-    return "INSERT INTO REQUESTER (ANTALL, BRUKER) VALUES ('1', '" + user + "');";
+function insertNew(user, antall) {
+    return "INSERT INTO REQUESTER (ANTALL, BRUKER) VALUES ('"+ antall + "', '" + user + "');";
 }
 
 function updateAntall(user, antall) {
