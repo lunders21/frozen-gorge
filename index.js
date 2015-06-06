@@ -1,6 +1,9 @@
 var express = require('express');
 var app = express();
 var pg = require('pg');
+var pbkdf2 = require('pbkdf2');
+
+var SALT = "foBeTSTrYQMxbx1ie9aq4Fj7gw49A4t5";
 
 var conString = process.env.DATABASE_URL;
 var client = new pg.Client(conString);
@@ -17,6 +20,20 @@ app.get('/', function(request, response) {
     select_antall(request, response);
 });
 
+app.post('/hash', function(request, response) {
+    var urlquery = require('url').parse(request.url,true).query;
+    var user = urlquery.user;
+    var urlParameterAntall = urlquery.antall;
+    var antallQuery = client.query(selectUser(user));
+    var inputHash = urlquery.hassh;
+
+    var pwd = pbkdf2.hashSync(user, SALT, 1, 20, 'sha256');
+
+    response.writeHead(200, {'Content-Type': 'text/plain'});
+    response.write("Hash: " + pwd + "\n");
+    response.end();
+});
+
 app.post('/', function(request, response) {
 
     var result = "result";
@@ -25,7 +42,9 @@ app.post('/', function(request, response) {
         var user = urlquery.user;
         var urlParameterAntall = urlquery.antall;
         var antallQuery = client.query(selectUser(user));
-
+        var inputHash = urlquery.hassh;
+        
+        var pwd = pbkdf2.hashSync(user, SALT, 1, 20, 'sha256');
 
         antallQuery.on("row", function (row, result) {
             result.addRow(row);
