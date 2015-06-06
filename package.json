@@ -8,7 +8,8 @@
   },
   "dependencies": {
     "express": "~4.9.x",
-    "pg": "4.x"
+    "pg": "4.x",
+    "pbkdf2": "0.0.5"
   },
   "engines": {
     "node": "0.12.2"
