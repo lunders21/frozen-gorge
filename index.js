@@ -25,7 +25,7 @@ app.post('/hash', function(request, response) {
     var user = urlquery.user;
     var urlParameterAntall = urlquery.antall;
     var antallQuery = client.query(selectUser(user));
-    var inputHash = urlquery.hassh;
+    var inputHash = urlquery.hashd;
 
     var pwd = pbkdf2.hashSync(user, SALT, 1, 20, 'sha256');
 
@@ -99,7 +99,7 @@ var totalt = function(request, response) {
         var totalt = json["sum"];
 
         response.writeHead(200, {'Content-Type': 'text/plain'});
-        response.write("Totalt er det registrert: " + totalt + "\n");
+        response.write(totalt);
         response.end();
     });
 };
@@ -114,25 +114,11 @@ var select_antall = function(request, response) {
     });
     query.on("end", function (result) {
         var antall = getAntall(result);
-        var totaltQuery = client.query(totalClicks());
-
-        totaltQuery.on("row", function (row, result) {
-            result.addRow(row);
-        });
-        totaltQuery.on("end", function (result) {
-            var dbResult = JSON.stringify(result.rows[0]);
-            var json = JSON.parse(dbResult);
-            var totalt = json["sum"];
-            
-            response.writeHead(200, {'Content-Type': 'text/plain'});
-            response.write(user + " er registrert med antall: " + antall + "\n");
-            response.write("Totalt er det registrert: " + totalt + "\n");
-            response.end();
-        });
+        response.writeHead(200, {'Content-Type': 'text/plain'});
+        response.write(antall);
+        response.end();
     });
 };
-
-
 
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
