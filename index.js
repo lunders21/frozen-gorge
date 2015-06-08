@@ -3,7 +3,7 @@ var app = express();
 var pg = require('pg');
 var pbkdf2 = require('pbkdf2');
 
-var SALT = "foBeTSTrYQMxbx1ie9aq4Fj7gw49A4t5";
+var salt = process.env.SALT;
 
 var conString = process.env.DATABASE_URL;
 var client = new pg.Client(conString);
@@ -27,7 +27,7 @@ app.post('/hash', function(request, response) {
     var antallQuery = client.query(selectUser(user));
     var inputHash = urlquery.hashd;
 
-    var pwd = pbkdf2.hashSync(user, SALT, 1, 20, 'sha256');
+    var pwd = pbkdf2.hashSync(user, salt, 1, 20, 'sha256');
 
     response.writeHead(200, {'Content-Type': 'text/plain'});
     response.write("Hash: " + pwd + "\n");
