@@ -38,8 +38,8 @@ app.get('/', function(request, response) {
 
         if (hash !== inputHash){
            //response.writeHead(403, {'Content-Type': 'text/plain'});
-            response.write("Ingen adgang!");
-            response.end();
+         //   response.write("Ingen adgang!");
+         //   response.end();
         } else {
         antallQuery.on("row", function (row, result) {
             result.addRow(row);
