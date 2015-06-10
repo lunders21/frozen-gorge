@@ -26,54 +26,6 @@ app.get('/hash', function(request, response) {
     response.end();
 });
 
-app.get('/', function(request, response) {
-    pg.connect(conString, function(err, client) {
-        var urlquery = require('url').parse(request.url,true).query;
-        var user = urlquery.user;
-        var urlParameterAntall = urlquery.antall;
-        var inputHash = urlquery.arg;
-
-        var antallQuery = client.query(selectUser(user));
-        var hash = pbkdf2.hashSync(user, salt, 1, 20, 'sha1');
-
-        if (hash !== inputHash){
-           //response.writeHead(403, {'Content-Type': 'text/plain'});
-         //   response.write("Ingen adgang!");
-         //   response.end();
-        } else {
-        antallQuery.on("row", function (row, result) {
-            result.addRow(row);
-        });
-        antallQuery.on("end", function (result) {
-            var antall = getAntall(result);
-            if (antall === 0) {
-                var insertQuery = client.query(insertNew(user, urlParameterAntall));
-                insertQuery.on("row", function (row, result) {
-                    result.addRow(row);
-                });
-                insertQuery.on("end", function () {
-                    response.writeHead(200, {'Content-Type': 'text/plain'});
-                    response.write(urlParameterAntall);
-                    response.end();
-                });
-            } else {
-                var updateQuery = client.query(updateAntall(user, urlParameterAntall));
-                updateQuery.on("row", function (row, result) {
-                    result.addRow(row);
-                });
-                updateQuery.on("end", function () {
-                    response.writeHead(200, {'Content-Type': 'text/plain'});
-                    response.write(urlParameterAntall);
-                    response.end();
-                });
-            }
-        });
-    }
-    });
-    
-    response.end();
-});
-
 app.post('/', function(request, response) {
     pg.connect(conString, function(err, client) {
         var urlquery = require('url').parse(request.url,true).query;
