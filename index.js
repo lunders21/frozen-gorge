@@ -38,13 +38,7 @@ app.post('/', function(request, response) {
         var inputHash = urlquery.arg;
         
         var antallQuery = client.query(selectUser(user));
-        
-        
         var hash = pbkdf2.hashSync(user, salt, 1, 20, 'sha1');
-        response.writeHead(200, {'Content-Type': 'text/plain'});
-        response.write(hash);
-        response.end();
-        
         
         if (hash !== inputHash){
             response.writeHead(403, {'Content-Type': 'text/plain'});
