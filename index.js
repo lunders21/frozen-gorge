@@ -42,7 +42,7 @@ app.post('/', function(request, response) {
         
         var hash = pbkdf2.hashSync(user, salt, 1, 20, 'sha1');
         response.writeHead(200, {'Content-Type': 'text/plain'});
-        response.write(hash);
+        response.write(inputHash);
         response.end();
         
         
