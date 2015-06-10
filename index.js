@@ -59,7 +59,7 @@ app.post('/', function(request, response) {
                 });
                 insertQuery.on("end", function () {
                     response.writeHead(200, {'Content-Type': 'text/plain'});
-                    response.write(user + " er opprettet.\n");
+                    response.write(urlParameterAntall);
                     response.end();
                 });
             } else {
@@ -69,7 +69,7 @@ app.post('/', function(request, response) {
                 });
                 updateQuery.on("end", function () {
                     response.writeHead(200, {'Content-Type': 'text/plain'});
-                    response.write(user + " har fått antall justert til " + urlParameterAntall + "\n");
+                    response.write(urlParameterAntall);
                     response.end();
                 });
                 
