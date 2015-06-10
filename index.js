@@ -31,8 +31,6 @@ app.get('/hash', function(request, response) {
 });
 
 app.post('/', function(request, response) {
-
-    var result = "result";
     pg.connect(conString, function(err, client) {
         var urlquery = require('url').parse(request.url,true).query;
         var user = urlquery.user;
@@ -43,12 +41,17 @@ app.post('/', function(request, response) {
         
         
         var hash = pbkdf2.hashSync(user, salt, 1, 20, 'sha1');
+        response.writeHead(200, {'Content-Type': 'text/plain'});
+        response.write(hash);
+        response.end();
         
-        if (hash !== inputHash){
+        
+     /*   if (hash !== inputHash){
             response.writeHead(403, {'Content-Type': 'text/plain'});
             response.write("Ingen adgang!");
             response.end();
         }
+        */
 
         antallQuery.on("row", function (row, result) {
             result.addRow(row);
