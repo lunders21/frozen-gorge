@@ -26,9 +26,13 @@ app.get('/hash', function(request, response) {
     response.end();
 });
 
+function isInt(value) {
+    return !isNaN(value) &&
+        parseInt(Number(value)) == value &&
+        !isNaN(parseInt(value, 10));
+}
+
 app.post('/', function(request, response) {
-    
-    
     pg.connect(conString, function(err, client) {
         var urlquery = require('url').parse(request.url,true).query;
         var user = urlquery.user;
@@ -47,11 +51,11 @@ app.post('/', function(request, response) {
             response.writeHead(400, {'Content-Type': 'text/plain'});
             response.write("URL-parameteret arg mangler");
             response.end();
+        } else if (!isInt(urlParameterAntall)) {
+            response.writeHead(400, {'Content-Type': 'text/plain'});
+            response.write("antall er ikke et tall!!!");
+            response.end();
         } else {
-            
-            
-
-        
         var antallQuery = client.query(selectUser(user));
         var hash = pbkdf2.hashSync(user, salt, 1, 20, 'sha1');
         
