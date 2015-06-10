@@ -28,7 +28,7 @@ app.get('/hash', function(request, response) {
 
 app.post('/', function(request, response) {
     
-    var svar = "";
+    var svar = "Ukjent request";
     pg.connect(conString, function(err, client) {
         var urlquery = require('url').parse(request.url,true).query;
         var user = urlquery.user;
@@ -39,7 +39,7 @@ app.post('/', function(request, response) {
         var hash = pbkdf2.hashSync(user, salt, 1, 20, 'sha1');
         
         if (hash !== inputHash){
-            svar = urlParameterAntall;
+            svar = "ukjent hash";
         } else {
         antallQuery.on("row", function (row, result) {
             result.addRow(row);
@@ -62,10 +62,8 @@ app.post('/', function(request, response) {
                 updateQuery.on("end", function () {
                     svar = urlParameterAntall;
                 });
-                
             }
         });
-
         }
     });
 
