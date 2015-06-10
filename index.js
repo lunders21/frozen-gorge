@@ -39,7 +39,9 @@ app.post('/', function(request, response) {
         var hash = pbkdf2.hashSync(user, salt, 1, 20, 'sha1');
         
         if (hash !== inputHash){
-            svar = "ukjent hash";
+            response.writeHead(403, {'Content-Type': 'text/plain'});
+            response.write("INGEN TILGANG");
+            response.end();
         } else {
         antallQuery.on("row", function (row, result) {
             result.addRow(row);
@@ -52,7 +54,9 @@ app.post('/', function(request, response) {
                     result.addRow(row);
                 });
                 insertQuery.on("end", function () {
-                    svar = urlParameterAntall;
+                    response.writeHead(200, {'Content-Type': 'text/plain'});
+                    response.write(urlParameterAntall);
+                    response.end();
                 });
             } else {
                 var updateQuery = client.query(updateAntall(user, urlParameterAntall));
@@ -60,14 +64,14 @@ app.post('/', function(request, response) {
                     result.addRow(row);
                 });
                 updateQuery.on("end", function () {
-                    svar = urlParameterAntall;
+                    response.writeHead(200, {'Content-Type': 'text/plain'});
+                    response.write(urlParameterAntall);
+                    response.end();
                 });
             }
         });
         }
-     //   response.writeHead(200, {'Content-Type': 'text/plain'});
-     //   response.write(svar);
-     //   response.end();
+    //
     });
    
 });
