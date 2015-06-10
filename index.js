@@ -16,10 +16,6 @@ app.get('/totalt', function(request, response) {
     totalt(request, response);
 });
 
-app.get('/', function(request, response) {
-    select_antall(request, response);
-});
-
 app.get('/hash', function(request, response) {
     var urlquery = require('url').parse(request.url,true).query;
     var user = urlquery.user;
