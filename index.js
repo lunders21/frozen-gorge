@@ -66,7 +66,7 @@ app.post('/', function(request, response) {
         });
         }
     });
-
+    svar = "bærre toll";
     response.writeHead(200, {'Content-Type': 'text/plain'});
     response.write(svar);
     response.end();
