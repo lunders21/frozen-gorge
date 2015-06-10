@@ -27,6 +27,8 @@ app.get('/hash', function(request, response) {
 });
 
 app.post('/', function(request, response) {
+    
+    var svar = "";
     pg.connect(conString, function(err, client) {
         var urlquery = require('url').parse(request.url,true).query;
         var user = urlquery.user;
@@ -37,12 +39,8 @@ app.post('/', function(request, response) {
         var hash = pbkdf2.hashSync(user, salt, 1, 20, 'sha1');
         
         if (hash !== inputHash){
-            response.writeHead(403, {'Content-Type': 'text/plain'});
-            response.write("Ingen adgang!");
-            response.end();
-            return;
-        } 
-
+            svar = urlParameterAntall;
+        } else {
         antallQuery.on("row", function (row, result) {
             result.addRow(row);
         });
@@ -54,9 +52,7 @@ app.post('/', function(request, response) {
                     result.addRow(row);
                 });
                 insertQuery.on("end", function () {
-                    response.writeHead(200, {'Content-Type': 'text/plain'});
-                    response.write(urlParameterAntall);
-                    response.end();
+                    svar = urlParameterAntall;
                 });
             } else {
                 var updateQuery = client.query(updateAntall(user, urlParameterAntall));
@@ -64,17 +60,17 @@ app.post('/', function(request, response) {
                     result.addRow(row);
                 });
                 updateQuery.on("end", function () {
-                    response.writeHead(200, {'Content-Type': 'text/plain'});
-                    response.write(urlParameterAntall);
-                    response.end();
+                    svar = urlParameterAntall;
                 });
                 
             }
         });
+
+        }
     });
 
     response.writeHead(200, {'Content-Type': 'text/plain'});
-    response.write("ukjent request");
+    response.write(svar);
     response.end();
 });
 
