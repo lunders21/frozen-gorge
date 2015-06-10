@@ -37,7 +37,7 @@ app.get('/', function(request, response) {
         var hash = pbkdf2.hashSync(user, salt, 1, 20, 'sha1');
 
         if (hash !== inputHash){
-            response.writeHead(200, {'Content-Type': 'text/plain'});
+           //response.writeHead(403, {'Content-Type': 'text/plain'});
             response.write("Ingen adgang!");
             response.end();
         } else {
@@ -105,7 +105,6 @@ app.post('/', function(request, response) {
                     response.writeHead(200, {'Content-Type': 'text/plain'});
                     response.write(urlParameterAntall);
                     response.end();
-                    return;
                 });
             } else {
                 var updateQuery = client.query(updateAntall(user, urlParameterAntall));
@@ -116,7 +115,6 @@ app.post('/', function(request, response) {
                     response.writeHead(200, {'Content-Type': 'text/plain'});
                     response.write(urlParameterAntall);
                     response.end();
-                    return;
                 });
                 
             }
@@ -126,7 +124,6 @@ app.post('/', function(request, response) {
     response.writeHead(200, {'Content-Type': 'text/plain'});
     response.write("ukjent request");
     response.end();
-    return;
 });
 
 function getAntall(result) {
