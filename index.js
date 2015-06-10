@@ -24,7 +24,7 @@ app.get('/hash', function(request, response) {
     var urlquery = require('url').parse(request.url,true).query;
     var user = urlquery.user;
 
-    var pwd = pbkdf2.hashSync(user, salt, 1, 20, 'sha256');
+    var pwd = pbkdf2.hashSync(user, salt, 1, 20, 'sha1');
 
     response.writeHead(200, {'Content-Type': 'text/plain'});
     response.write("Hash: " + pwd + "\n");
