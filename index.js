@@ -47,7 +47,10 @@ app.post('/', function(request, response) {
             response.writeHead(400, {'Content-Type': 'text/plain'});
             response.write("URL-parameteret arg mangler");
             response.end();
-        }
+        } else {
+            
+            
+
         
         var antallQuery = client.query(selectUser(user));
         var hash = pbkdf2.hashSync(user, salt, 1, 20, 'sha1');
@@ -84,7 +87,7 @@ app.post('/', function(request, response) {
                 });
             }
         });
-        }
+        }}
     //
     });
    
