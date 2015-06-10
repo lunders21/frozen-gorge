@@ -23,11 +23,10 @@ app.get('/', function(request, response) {
 app.get('/hash', function(request, response) {
     var urlquery = require('url').parse(request.url,true).query;
     var user = urlquery.user;
-
     var pwd = pbkdf2.hashSync(user, salt, 1, 20, 'sha1');
 
     response.writeHead(200, {'Content-Type': 'text/plain'});
-    response.write("Hash: " + pwd + "\n");
+    response.write(pwd);
     response.end();
 });
 
@@ -38,10 +37,18 @@ app.post('/', function(request, response) {
         var urlquery = require('url').parse(request.url,true).query;
         var user = urlquery.user;
         var urlParameterAntall = urlquery.antall;
-        var antallQuery = client.query(selectUser(user));
-        var inputHash = urlquery.hassh;
+        var inputHash = urlquery.arg;
         
-        var pwd = pbkdf2.hashSync(user, SALT, 1, 20, 'sha256');
+        var antallQuery = client.query(selectUser(user));
+        
+        
+        var hash = pbkdf2.hashSync(user, salt, 1, 20, 'sha1');
+        
+        if (hash !== inputHash){
+            response.writeHead(403, {'Content-Type': 'text/plain'});
+            response.write("Ingen adgang!");
+            response.end();
+        }
 
         antallQuery.on("row", function (row, result) {
             result.addRow(row);
