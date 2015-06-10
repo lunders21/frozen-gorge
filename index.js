@@ -40,9 +40,8 @@ app.get('/', function(request, response) {
         if (hash !== inputHash){
             response.writeHead(403, {'Content-Type': 'text/plain'});
             response.write("Ingen adgang!");
-            response.end();
-            return;
-        }
+        } else {
+            response.writeHead(200, {'Content-Type': 'text/plain'});
 
         antallQuery.on("row", function (row, result) {
             result.addRow(row);
@@ -55,10 +54,7 @@ app.get('/', function(request, response) {
                     result.addRow(row);
                 });
                 insertQuery.on("end", function () {
-                    response.writeHead(200, {'Content-Type': 'text/plain'});
                     response.write(urlParameterAntall);
-                    response.end();
-                    return;
                 });
             } else {
                 var updateQuery = client.query(updateAntall(user, urlParameterAntall));
@@ -66,19 +62,14 @@ app.get('/', function(request, response) {
                     result.addRow(row);
                 });
                 updateQuery.on("end", function () {
-                    response.writeHead(200, {'Content-Type': 'text/plain'});
                     response.write(urlParameterAntall);
-                    response.end();
-                    return;
                 });
-
             }
         });
+    }
     });
-    response.writeHead(200, {'Content-Type': 'text/plain'});
-    response.write("ukjent request");
     response.end();
-    return;
+
 });
 
 app.post('/', function(request, response) {
