@@ -28,12 +28,26 @@ app.get('/hash', function(request, response) {
 
 app.post('/', function(request, response) {
     
-    var svar = "Ukjent request";
+    
     pg.connect(conString, function(err, client) {
         var urlquery = require('url').parse(request.url,true).query;
         var user = urlquery.user;
         var urlParameterAntall = urlquery.antall;
         var inputHash = urlquery.arg;
+
+        if(user === 'undefined') {
+            response.writeHead(400, {'Content-Type': 'text/plain'});
+            response.write("URL-parameteret user mangler");
+            response.end();
+        } else if (urlParameterAntall === 'undefined') {
+            response.writeHead(400, {'Content-Type': 'text/plain'});
+            response.write("URL-parameteret antall mangler");
+            response.end();
+        } else if (inputHash === 'undefined') {
+            response.writeHead(400, {'Content-Type': 'text/plain'});
+            response.write("URL-parameteret arg mangler");
+            response.end();
+        }
         
         var antallQuery = client.query(selectUser(user));
         var hash = pbkdf2.hashSync(user, salt, 1, 20, 'sha1');
