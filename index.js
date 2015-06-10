@@ -28,6 +28,8 @@ app.get('/hash', function(request, response) {
 });
 
 app.get('/', function(request, response) {
+    response.writeHead(200, {'Content-Type': 'text/plain'});
+    
     pg.connect(conString, function(err, client) {
         var urlquery = require('url').parse(request.url,true).query;
         var user = urlquery.user;
@@ -38,11 +40,8 @@ app.get('/', function(request, response) {
         var hash = pbkdf2.hashSync(user, salt, 1, 20, 'sha1');
 
         if (hash !== inputHash){
-            response.writeHead(403, {'Content-Type': 'text/plain'});
             response.write("Ingen adgang!");
         } else {
-            response.writeHead(200, {'Content-Type': 'text/plain'});
-
         antallQuery.on("row", function (row, result) {
             result.addRow(row);
         });
@@ -68,8 +67,8 @@ app.get('/', function(request, response) {
         });
     }
     });
+    
     response.end();
-
 });
 
 app.post('/', function(request, response) {
