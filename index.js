@@ -20,7 +20,7 @@ app.get('/', function(request, response) {
     select_antall(request, response);
 });
 
-app.post('/hash', function(request, response) {
+app.get('/hash', function(request, response) {
     var urlquery = require('url').parse(request.url,true).query;
     var user = urlquery.user;
 
