@@ -24,12 +24,9 @@ app.get('/hash', function(request, response) {
     response.writeHead(200, {'Content-Type': 'text/plain'});
     response.write(pwd);
     response.end();
-    return;
 });
 
 app.get('/', function(request, response) {
-    response.writeHead(200, {'Content-Type': 'text/plain'});
-    
     pg.connect(conString, function(err, client) {
         var urlquery = require('url').parse(request.url,true).query;
         var user = urlquery.user;
@@ -40,7 +37,9 @@ app.get('/', function(request, response) {
         var hash = pbkdf2.hashSync(user, salt, 1, 20, 'sha1');
 
         if (hash !== inputHash){
+            response.writeHead(200, {'Content-Type': 'text/plain'});
             response.write("Ingen adgang!");
+            response.end();
         } else {
         antallQuery.on("row", function (row, result) {
             result.addRow(row);
@@ -53,7 +52,9 @@ app.get('/', function(request, response) {
                     result.addRow(row);
                 });
                 insertQuery.on("end", function () {
+                    response.writeHead(200, {'Content-Type': 'text/plain'});
                     response.write(urlParameterAntall);
+                    response.end();
                 });
             } else {
                 var updateQuery = client.query(updateAntall(user, urlParameterAntall));
@@ -61,7 +62,9 @@ app.get('/', function(request, response) {
                     result.addRow(row);
                 });
                 updateQuery.on("end", function () {
+                    response.writeHead(200, {'Content-Type': 'text/plain'});
                     response.write(urlParameterAntall);
+                    response.end();
                 });
             }
         });
@@ -149,22 +152,6 @@ var totalt = function(request, response) {
 
         response.writeHead(200, {'Content-Type': 'text/plain'});
         response.write(totalt);
-        response.end();
-    });
-};
-
-var select_antall = function(request, response) {
-    var urlquery = require('url').parse(request.url,true).query;
-    var user = urlquery.user;
-    var query = client.query(selectUser(user));
-
-    query.on("row", function (row, result) {
-        result.addRow(row);
-    });
-    query.on("end", function (result) {
-        var antall = getAntall(result);
-        response.writeHead(200, {'Content-Type': 'text/plain'});
-        response.write(antall);
         response.end();
     });
 };
