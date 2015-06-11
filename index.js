@@ -92,9 +92,34 @@ app.post('/', function(request, response) {
             }
         });
         }}
-    //
     });
    
+});
+
+
+app.get('/', function(request, response) {
+    pg.connect(conString, function(err, client) {
+        var urlquery = require('url').parse(request.url,true).query;
+        var user = urlquery.user;
+
+        if(user === undefined) {
+            response.writeHead(400, {'Content-Type': 'text/plain'});
+            response.write("URL-parameteret user mangler");
+            response.end();
+        } else {
+            var antallQuery = client.query(selectUser(user));
+            antallQuery.on("row", function (row, result) {
+                result.addRow(row);
+            });
+            antallQuery.on("end", function (result) {
+                var antall = getAntall(result);
+                response.writeHead(200, {'Content-Type': 'text/plain'});
+                response.write(antall);
+                response.end();
+            });
+        }
+    });
+
 });
 
 function getAntall(result) {
