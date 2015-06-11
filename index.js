@@ -114,7 +114,7 @@ app.get('/', function(request, response) {
             antallQuery.on("end", function (result) {
                 var antall = getAntall(result);
                 response.writeHead(200, {'Content-Type': 'text/plain'});
-                response.write(antall);
+                response.write(""+antall);
                 response.end();
             });
         }
