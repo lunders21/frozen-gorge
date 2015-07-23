@@ -37,7 +37,7 @@ app.post('/', function(request, response) {
         var urlquery = require('url').parse(request.url,true).query;
         var user = urlquery.user;
         var urlParameterAntall = urlquery.antall;
-        var inputHash = urlquery.arg;
+     //   var inputHash = urlquery.arg;
 
         if(user === undefined) {
             response.writeHead(400, {'Content-Type': 'text/plain'});
@@ -47,23 +47,24 @@ app.post('/', function(request, response) {
             response.writeHead(400, {'Content-Type': 'text/plain'});
             response.write("URL-parameteret antall mangler");
             response.end();
-        } else if (inputHash === undefined) {
+       /* } else if (inputHash === undefined) {
             response.writeHead(400, {'Content-Type': 'text/plain'});
             response.write("URL-parameteret arg mangler");
-            response.end();
+            response.end(); */
         } else if (!isInt(urlParameterAntall)) {
             response.writeHead(400, {'Content-Type': 'text/plain'});
             response.write("antall er ikke et tall!!!");
             response.end();
         } else {
         var antallQuery = client.query(selectUser(user));
-        var hash = pbkdf2.hashSync(user, salt, 1, 20, 'sha1');
+    //    var hash = pbkdf2.hashSync(user, salt, 1, 20, 'sha1');
         
-        if (hash !== inputHash){
+   /*     if (hash !== inputHash){
             response.writeHead(403, {'Content-Type': 'text/plain'});
             response.write("INGEN TILGANG");
             response.end();
-        } else {
+        } 
+        */
         antallQuery.on("row", function (row, result) {
             result.addRow(row);
         });
@@ -91,7 +92,7 @@ app.post('/', function(request, response) {
                 });
             }
         });
-        }}
+        }
     });
    
 });
