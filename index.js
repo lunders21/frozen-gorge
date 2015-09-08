@@ -80,6 +80,8 @@ app.post('/', function(request, response) {
         });
         }
     });
+
+    pg.disconnect();
    
 });
 
