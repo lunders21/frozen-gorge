@@ -56,7 +56,7 @@ app.post('/', function(request, response) {
     });
     antallQuery.on("end", function (result) {
         var antall = getAntall(result);
-        if (antall === 0) {
+        if (antall !== undefined) {
             var insertQuery = client.query(insertNew(user, urlParameterAntall));
             insertQuery.on("row", function (row, result) {
                 result.addRow(row);
@@ -141,11 +141,11 @@ app.listen(app.get('port'), function() {
 });
 
 app.on('uncaughtException', function (error) {
-    console.log(error.stack);
+    console.log('uncaughtException' + error.stack);
 });
 
-process.on('uncaughtException', function (err) {
-    console.log(err);
+process.on('uncaughtException2', function (err) {
+    console.log('uncaughtException' + err);
 });
 
 
