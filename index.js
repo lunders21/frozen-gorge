@@ -56,7 +56,7 @@ app.post('/', function(request, response) {
     });
     antallQuery.on("end", function (result) {
         var antall = getAntall(result);
-        if (antall !== undefined) {
+        if (antall === undefined) {
             var insertQuery = client.query(insertNew(user, urlParameterAntall));
             insertQuery.on("row", function (row, result) {
                 result.addRow(row);
