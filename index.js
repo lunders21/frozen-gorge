@@ -13,7 +13,12 @@ app.set('port', (process.env.PORT || 5000));
 app.use(express.static(__dirname + '/public'));
 
 app.get('/totalt', function(request, response) {
-    totalt(request, response);
+    try {
+          totalt(request, response);   
+    } catch(e){
+
+    }
+  
 });
 
 app.get('/hash', function(request, response) {
@@ -33,6 +38,7 @@ function isInt(value) {
 }
 
 app.post('/', function(request, response) {
+try {
 
     var urlquery = require('url').parse(request.url,true).query;
     var user = urlquery.user;
@@ -79,12 +85,18 @@ app.post('/', function(request, response) {
         }
     });
     }
-
-});
+    } catch(e) {
+    
+    
+}     
+});  
 
 
 app.get('/', function(request, response) {
-
+    try {
+        
+        
+ 
     var urlquery = require('url').parse(request.url,true).query;
     var user = urlquery.user;
 
@@ -104,7 +116,10 @@ app.get('/', function(request, response) {
             response.end();
         });
     }
-
+       } catch(e) {
+        
+        
+    }
 
 });
 
