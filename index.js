@@ -92,7 +92,7 @@ try {
 });  
 
 
-app.get('/', function(request, response) {
+app.get('/info', function(request, response) {
     try {
         
         
@@ -121,6 +121,61 @@ app.get('/', function(request, response) {
         
     }
 
+});
+
+
+app.get('/', function(request, response) {
+    try {
+
+        var urlquery = require('url').parse(request.url,true).query;
+        var user = urlquery.user;
+        var urlParameterAntall = urlquery.antall;
+        if(user === undefined) {
+            response.writeHead(400, {'Content-Type': 'text/plain'});
+            response.write("URL-parameteret user mangler");
+            response.end();
+        } else if (urlParameterAntall === undefined) {
+            response.writeHead(400, {'Content-Type': 'text/plain'});
+            response.write("URL-parameteret antall mangler");
+            response.end();
+        } else if (!isInt(urlParameterAntall)) {
+            response.writeHead(400, {'Content-Type': 'text/plain'});
+            response.write("antall er ikke et tall!!!");
+            response.end();
+        } else {
+            var antallQuery = client.query(selectUser(user));
+            antallQuery.on("row", function (row, result) {
+                result.addRow(row);
+            });
+            antallQuery.on("end", function (result) {
+                var antall = getAntall(result);
+                if (antall === undefined) {
+                    var insertQuery = client.query(insertNew(user, urlParameterAntall));
+                    insertQuery.on("row", function (row, result) {
+                        result.addRow(row);
+                    });
+                    insertQuery.on("end", function () {
+                        response.writeHead(200, {'Content-Type': 'text/plain'});
+                        response.write(urlParameterAntall);
+                        response.end();
+                    });
+                } else {
+                    var updateQuery = client.query(updateAntall(user, urlParameterAntall));
+                    updateQuery.on("row", function (row, result) {
+                        result.addRow(row);
+                    });
+                    updateQuery.on("end", function () {
+                        response.writeHead(200, {'Content-Type': 'text/plain'});
+                        response.write(urlParameterAntall);
+                        response.end();
+                    });
+                }
+            });
+        }
+    } catch(e) {
+
+
+    }
 });
 
 function getAntall(result) {
